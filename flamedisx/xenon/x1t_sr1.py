@@ -297,7 +297,7 @@ class SR1Source:
         #
         # x_fdc, y_fdc, z_fdc are the fdc-corrected positions
         
-        # going from true position to position distorted by field
+        # going from true position to position distorted by field (to be changed)
         d['r_observed'] = self.drift_field_distortion_map(
             np.transpose([d['r'].values,
                           d['z'].values])) 
