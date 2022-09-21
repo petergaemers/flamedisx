@@ -60,6 +60,7 @@ class LogLikelihood:
             progress=True,
             defaults=None,
             mu_estimators=None,
+            data_is_annotated=False,
             **common_param_specs):
         """
 
@@ -238,10 +239,11 @@ class LogLikelihood:
                 return 0.
         self.log_constraint = log_constraint
 
-        self.set_data(data)
+        self.set_data(data, data_is_annotated=data_is_annotated)
 
     def set_data(self,
-                 data: ty.Union[pd.DataFrame, ty.Dict[str, pd.DataFrame]]):
+                 data: ty.Union[pd.DataFrame, ty.Dict[str, pd.DataFrame]],
+                 data_is_annotated=False):
         """set new data for sources in the likelihood.
         Data is passed in the same format as for __init__
         Data can contain any subset of the original data keys to only
@@ -271,7 +273,7 @@ class LogLikelihood:
                 continue
 
             # Copy ensures annotations don't clobber
-            source.set_data(deepcopy(data[dname]))
+            source.set_data(deepcopy(data[dname]), data_is_annotated)
 
             # Update batch info
             dset_index = self.dsetnames.index(dname)
